@@ -1,0 +1,56 @@
+<br>
+		<table id='tabMes' cellspacing='0px'>
+		<tr>  
+		<td id='tdMesName'>
+		Anton &nbsp;
+		</td> 
+		<td id='tdMesDate'>
+		09:19, 06.12.2012
+		</td> 
+		</tr>
+		</table>
+
+		<table cellspacing='0px' id='tabMesComment'>
+		<tr>
+		<td style='padding: 15px 15px 15px 15px;'> TEST <b><h1>TEST ;)</h1></b> </td>
+		</tr>
+		</table>
+		<br><br>
+		<table id='tabMes' cellspacing='0px'>
+		<tr>  
+		<td id='tdMesName'>
+		Anton &nbsp;
+		</td> 
+		<td id='tdMesDate'>
+		09:21, 06.12.2012
+		</td> 
+		</tr>
+		</table>
+
+		<table cellspacing='0px' id='tabMesComment'>
+		<tr>
+		<td style='padding: 15px 15px 15px 15px;'> <?php
+echo "<h1>Super test</h1>";
+?> </td>
+		</tr>
+		</table>
+		<br><br>
+		<table id='tabMes' cellspacing='0px'>
+		<tr>  
+		<td id='tdMesName'>
+		Anton &nbsp;
+		</td> 
+		<td id='tdMesDate'>
+		09:23, 06.12.2012
+		</td> 
+		</tr>
+		</table>
+
+		<table cellspacing='0px' id='tabMesComment'>
+		<tr>
+		<td style='padding: 15px 15px 15px 15px;'> <?php
+echo "<b>TEST</b>";
+?> </td>
+		</tr>
+		</table>
+		<br>

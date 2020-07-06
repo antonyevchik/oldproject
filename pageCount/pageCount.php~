@@ -1,0 +1,44 @@
+<?php
+
+
+//BEGIN INITIALIZATION FOR PAGES COUNT
+$naop = 7;
+$pn = $_GET['pn']; if($_GET['pn']=='') $pn=1;
+if($pn==1) $na=0;
+else {$na = ($pn-1)*$naop;}
+		
+//END INITIALIZATION FOR PAGES COUNT
+
+
+//BEGIN SENDING APP INFO ACROSS $rall[] ARRAY
+for($j = $na; ($j < ($na+$naop)); $j++)
+{include($rootPath.'appWin.php');} 
+//END  SENDING APP INFO ACROSS $rall[] ARRAY
+
+
+//BEGIN PAGES COUNT CODE
+if($pp/$naop>=5)
+	{
+		$sp=$pn-2; $lp=$pn+2;
+		if($lp>$pp) {$lp=$pp; $sp=$pp-4;}
+		if($sp<=0) {$sp=1; $lp=5;}
+	}
+else 
+	{
+		$sp=1; $lp=ceil($pp/$naop);
+	}
+
+
+	
+	if($pn!=1) echo "<a href='/androApps/?".$cntlink."&pn=".($pn-1)."&l=".$lg."'> < </a>";
+		
+	
+for($p=$sp; $p<=$lp; $p++) 
+	{		
+		echo "<a href='/androApps/?".$cntlink."&pn=".$p."&l=".$lg."'> ".$p."</a>";
+	}
+
+	
+	if($pn!=$lp) echo "<a href='/androApps/?".$cntlink."&pn=".($pn+1)."&l=".$lg."'> > </a>";
+//END PAGES COUNT CODE
+?>

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php
+if(isset($_GET['cnt']))
+{
+if($_GET['cnt']=='ctg') $title = $_GET['category'];
+if($_GET['cnt']=='srch') $title = $_GET['sQ'];
+if($_GET['cnt']=='ainfo') $title = $_GET['an'];
+if($_GET['cnt']=='news'&&$_GET['l']=='en') $title = "News";
+if($_GET['cnt']=='news'&&$_GET['l']=='ru') $title = "Новости";
+if($_GET['cnt']=='fnws') $title = $_GET['nn'];
+if($_GET['cnt']=='terms'&&$_GET['l']=='en') $title = "Terms of Use";
+if($_GET['cnt']=='terms'&&$_GET['l']=='ru') $title = "Условия использования";
+}
+else 
+{$title = "Main";}
+
+echo "<title> AndroidLifestyle - " .$title. "</title>";
+echo "<meta http-equiv='Content-Type' content='text/html; charset=windows-1251'>";
+echo "<meta name='Description' content='The best collection of useful and funny Android applications and games for free downloading. Лучшая коллекция	полезных и развлекательных програм и игр для бесплатного скачавания' />";
+echo "<meta name='Keywords' content='Android, Android application, Android games, free downloads, apk, .apk, download apk, fylhjbl, crfxfnm fylhjbl buhs, ghjuhfvvs lkz fylhjbl, Андроид, андроид программы, андроид игры, скачать игры для андроид, скачать программы для андроид' />";
+
+?>

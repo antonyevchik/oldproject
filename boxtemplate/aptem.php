@@ -1,0 +1,74 @@
+<?php
+include ($rootPath."phpqrcode/qrlib.php"); //QRcode library including
+//echo $_SERVER['REMOTE_ADDR'];
+
+echo "<div id='appWinStyle'>";
+
+//echo "<hr>";
+
+
+
+if(!empty($_GET['app'])&&!empty($_GET['category'])) 
+{
+	$category = $_GET['category'];
+	$app = $_GET['app'];
+	$an = $_GET['an'];
+	$aPath = $rootPath."category/".$category."/".$app;
+	$msgPath = $rootPath."messages/messages_app.php";
+	
+	$queryDesc="SELECT Description_en, Description_ru FROM \"$category\" WHERE Id='$app'";
+	$resultDesc=mysqli_query($queryDesc);
+	if(!$resultDesc) die('database access error'. mysqli_error());	
+	$rowDesc = mysqli_fetch_row($resultDesc);
+	
+	
+		
+	echo "<h3>".$_GET['category']; if(isset($_GET['an'])) {echo "&nbsp;>&nbsp;".$_GET['an']."</h3>";}
+
+	echo "<div id='mScrsht'>";
+	include ($aPath."/mScrnsht_".$app.".php");
+	echo "</div>"; 
+	echo "<div id='mInfo'>";
+	include ($aPath."/mInfo_".$lg."_".$app.".php");
+	include ($rootPath."rating/rating.php");
+	echo "</div><br>";
+	echo "<div id='qr'><b>$qrCode_lg &nbsp;</b><br>";
+//	include ($aPath."/qr_".$app.".php");
+	echo "</div><br>";
+	echo "<div id='Links'><b>$additLink_lg</b>";
+	include ($aPath."/links_".$app.".php");
+	echo "</div><br>";
+	echo "<div id='vk_like'><script type='text/javascript'>VK.Widgets.Like('vk_like', {type: 'mini'});</script></div>";
+	echo "
+	<!-- Place this tag where you want the +1 button to render. -->
+	<div class='g-plusone'></div>
+
+	<!-- Place this tag after the last +1 button tag. -->
+	<script type='text/javascript'>
+  	(function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  	})();
+	</script>";
+	echo "<div class='fb-like' data-send='true' data-layout='button_count' data-width='450' data-show-faces='true' data-font='lucida grande'></div>";
+	
+	echo "<br>";
+	echo "<p><h3>$Description_lg</h3></p>";
+	echo "<div id='Desc'><br>";
+	//include ($aPath."/dscrpt_".$lg."_".$app.".php");
+	if($lg=='en') echo $rowDesc[0];
+	if($lg=='ru') echo $rowDesc[1];
+	echo "</div>";
+	echo "<p><h3>$Screenshots_lg</h3></p>";
+	echo "<div id='scrnShts'>";
+	include ($aPath."/scrnshts_".$app.".php");
+	echo "</div>";
+	echo "<p><h3>$Messages_lg</h3></p>";
+
+	include ($msgPath); 
+//echo "</div>";
+}
+echo "</div>";
+//header('Location: index.php');
+?>

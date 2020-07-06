@@ -1,0 +1,25 @@
+
+
+<hr />
+<form method='post' action='sets.php' enctype='multipart/form-data'> <pre>
+Name              <input type='text' name='Name' />
+Version           <input type='text' name='Version' />
+Android Version   <input type='text' name='Android_Version' />
+Developer         <input type='text' name='Developer' />
+Size              <input type='text' name='Size' />
+Id                <input type='text' name='Id' />
+
+Upload Application :      <input type='file' name='application' size='10' /> <br />
+Upload Main Screenshot:   <input type='file' name='mainScreenshot' size='10' /> <br />
+Upload First Screenshot:  <input type='file' name='firstScreenshot' size='10' /> <br />
+Upload Second Screenshot: <input type='file' name='secondScreenshot' size='10' /> <br />
+Upload Third Screenshot:  <input type='file' name='thirdScreenshot' size='10' /> <br />
+Upload Fourth Screenshot: <input type='file' name='fourthScreenshot' size='10' /> <br />
+Upload QR-code Image:     <input type='file' name='qrCode' size='10' /> <br /><br />
+
+Description:
+<textarea name='description' rows='10' cols='50'></textarea>
+<input type='hidden' name='selectTab' value='$selectTab' />
+<input type='submit' value='ADD RECORD' />
+</pre>
+</form>

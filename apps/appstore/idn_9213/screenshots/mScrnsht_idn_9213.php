@@ -1,0 +1,1 @@
+<img border='0' id='scrnshtSetWidth' src='/apps/appstore/idn_9213/screenshots/mainScrnsht_idn_9213' />

@@ -1,0 +1,18 @@
+<br>
+		<table id='tabMes' cellspacing='0px'>
+		<tr>  
+		<td id='tdMesName'>
+		John &nbsp;
+		</td> 
+		<td id='tdMesDate'>
+		16:19, 12.01.2013
+		</td> 
+		</tr>
+		</table>
+
+		<table cellspacing='0px' id='tabMesComment'>
+		<tr>
+		<td id='tdComment'> Nice reader! </td>
+		</tr>
+		</table>
+		<br>

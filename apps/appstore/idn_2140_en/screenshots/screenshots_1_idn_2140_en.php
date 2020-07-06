@@ -1,0 +1,1 @@
+<img border='0' id='scrnshtSetHeight' src='/android-lifestyle_t2/apps/appstore/idn_2140_en/screenshots/screenshot_1_idn_2140_en' />

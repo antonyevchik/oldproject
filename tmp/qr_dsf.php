@@ -1,0 +1,1 @@
+<?php $fullappPath=file_get_contents('/var/www/android-lifestyle_t2/tmp/downloadlink_dsf.php');  QRcode::png($fullappPath,'/var/www/android-lifestyle_t2/tmp/qr_dsf.png','L', 3,1);  echo "<a href=".$fullappPath."><img border='0' src='/android-lifestyle_t2/tmp/qr_dsf.png' /></a>"; ?>

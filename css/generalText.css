@@ -1,0 +1,105 @@
+@CHARSET "UTF-8";
+
+#post_description_Content
+{
+		/* Font */
+	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
+	font-size: 12px;
+
+	/* Text color */
+	color: #333;
+
+	/* Remove the background color to make it transparent */
+	background-color: #fff;
+
+	margin: 20px;
+}
+
+.cke_editable
+{
+	font-size: 13px;
+	line-height: 1.6em;
+}
+
+#post_description_Content blockquote
+{
+	font-style: italic;
+	font-family: Georgia, Times, "Times New Roman", serif;
+	padding: 2px 0;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0;
+}
+
+.cke_contents_ltr blockquote
+{
+	padding-left: 20px;
+	padding-right: 8px;
+	border-left-width: 5px;
+}
+
+.cke_contents_rtl blockquote
+{
+	padding-left: 8px;
+	padding-right: 20px;
+	border-right-width: 5px;
+}
+
+#post_description_Content a
+{
+	color: #0782C1;
+}
+
+#post_description_Content ol, #post_description_Content ul, #post_description_Content dl
+{
+	/* IE7: reset rtl list margin. (#7334) */
+	*margin-right: 0px;
+	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
+	padding: 0 40px;
+}
+
+
+#post_description_Content h1,#post_description_Content h2,#post_description_Content h3,#post_description_Content h4,#post_description_Content h5,#post_description_Content h6
+{
+	font-weight: bold;
+	line-height: 1.2em;
+}
+
+#post_description_Content hr
+{
+	border: 0px;
+	border-top: 1px solid #ccc;
+}
+
+#post_description_Content img.right 
+{
+    border: 1px solid #ccc;
+    float: right;
+    margin-left: 15px;
+    padding: 5px;
+}
+
+#post_description_Content img.left 
+{
+    border: 1px solid #ccc;
+    float: left;
+    margin-right: 15px;
+    padding: 5px;
+}
+
+#post_description_Content img:hover 
+{
+	opacity: .9;
+	filter: alpha(opacity = 90);
+}
+
+#post_description_Content pre
+{
+	white-space: pre-wrap; /* CSS 2.1 */
+	word-wrap: break-word; /* IE7 */
+}
+
+.marker 
+{
+    background-color: Yellow;
+}

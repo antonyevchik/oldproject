@@ -1,0 +1,4 @@
+<?php
+include "qrlib.php";
+QRcode::png("http://www.ruseller.com");
+?>

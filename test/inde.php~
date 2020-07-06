@@ -1,0 +1,19 @@
+<?php include('templates/header1.php');?>
+
+<title>AndroApps</title>
+<meta name='Description' content='' />
+<meta name='Keywords' content='' />
+
+<?php 
+	 include('templates/header2.php');
+	 include('ads/topAd.php');
+	 include ('search/search.php');
+	 include ('menu/menu.php');
+	 include ('ads/leftAd.php'); 
+	 include ('ads/rightAd.php'); 
+?>
+
+<div id='centerContent'> 
+<?php include('appList.php');?>
+</div>
+<?php include('templates/footer.php');?>

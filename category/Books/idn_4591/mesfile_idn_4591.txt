@@ -1,0 +1,35 @@
+<br>
+		<table id='tabMes' cellspacing='0px'>
+		<tr>  
+		<td id='tdMesName'>
+		Anton &nbsp;
+		</td> 
+		<td id='tdMesDate'>
+		10:26, 03.12.2012
+		</td> 
+		</tr>
+		</table>
+
+		<table cellspacing='0px' id='tabMesComment'>
+		<tr>
+		<td style='padding: 15px 15px 15px 15px;'> COOL!!! </td>
+		</tr>
+		</table>
+		<br><br>
+		<table id='tabMes' cellspacing='0px'>
+		<tr>  
+		<td id='tdMesName'>
+		AntonTEST &nbsp;
+		</td> 
+		<td id='tdMesDate'>
+		15:09, 04.12.2012
+		</td> 
+		</tr>
+		</table>
+
+		<table cellspacing='0px' id='tabMesComment'>
+		<tr>
+		<td style='padding: 15px 15px 15px 15px;'> TEST </td>
+		</tr>
+		</table>
+		<br>

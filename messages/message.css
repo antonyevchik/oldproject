@@ -1,0 +1,25 @@
+
+#tabMes
+{
+	width: 100%;
+	margin: 0px 0px;
+	padding: 0px 15px 0px 15px;
+	background: #cccccc;
+}
+
+#tabMesComment
+{
+	width: 100%;
+}
+
+#tdMesDate
+{
+	text-align: right;
+}
+#tdComment
+{
+	width: 625px;
+	margin: 0px 0px;
+	padding: 15px 15px 15px 15px;
+	background: #ececec;
+}

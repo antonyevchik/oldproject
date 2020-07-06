@@ -1,0 +1,21 @@
+<?php
+mysql_select_db($db_news, $db_server) or die("database sel error". mysql_error());
+
+if(isset($_GET['cnt'])&&$_GET['cnt']=='fnws')
+include ("boxtemplate/nwtem.php");
+
+//BEGIN NEWS CODE
+if($_GET['cnt']=='news')
+{
+	$cntlink="cnt=news";
+	include ("newsList.php");
+}
+//END NEWS CODE
+
+
+if(isset($_GET['cnt'])&&$_GET['cnt']=='ainfo')
+include ("boxtemplate/aptem.php");
+
+include ("appList.php");
+
+?>

@@ -1,0 +1,61 @@
+<?php
+//	echo fixip()." ";
+	$querySet="SET sql_mode='ANSI_QUOTES';";
+	if(!mysql_query($querySet, $db_server))
+		echo "data Set ANSI_QUOTES error: $querySet<br />" . mysql_error(). "<br /><br />";
+
+	$queryRead="SELECT Rate, RateSum, RateCount, Name FROM \"$category\" WHERE Id='$app'";
+	$resultRead=mysql_query($queryRead);
+	if(!$resultRead) die('database access error'. mysql_error());	
+	$rowRead = mysql_fetch_row($resultRead);
+
+if($ipPermit)
+{
+	$submitRate = $_GET['rate'];
+	$rowRead[2]++;
+//	$submitRate = 5;
+ 	$resultSum = $submitRate+$rowRead[1];
+	$rate = $resultSum/$rowRead[2];
+ 	
+	$queryWrite="UPDATE \"$category\" SET RateSum='$resultSum', RateCount='$rowRead[2]', Rate='$rate' WHERE Id='$app'";
+	$resultWrite=mysql_query($queryWrite);
+	if(!$resultWrite) die('database access error'. mysql_error());	
+//	mysql_close($db_server);	
+	
+//echo "<script>location.href='/?cnt=ainfo&category=".$category."&app=".$app."&an=".$rowRead[3]."&l=".$lg."'</script>";
+}
+else 
+{ 
+//echo "<script>location.href='/?cnt=ainfo&category=".$category."&app=".$app."&an=".$rowRead[3]."&l=".$lg."'</script>"; 
+//echo "<script>location.href='http://google.com'</script>";
+//echo $hRateoutput;
+
+}
+
+$r = round($rowRead[0], 1);
+$ir = floor($r);
+$fr = $r-$ir;
+//echo $rmsg."<br>";
+echo "<b>".$rate_lg."&nbsp;".$r."&nbsp;&nbsp;&nbsp;".$votes_lg."&nbsp;".$rowRead[2]."</b>";
+
+
+//echo "<script>getRate($ir ,$fr ,'$app')</script>";
+echo "<img src=\"rating/space.png\" onload=\"getRate($ir ,$fr ,'$app')\" />";  
+  
+echo "<div id='rating' >";
+for($i=1;$i<=5;$i++)
+{
+//echo "<a href=\"/?cnt=ainfo&category=$category&app=$app&rate=$i&an=$rowRead[3]&l=$lg\"><img border=\"0\" hspace=\"0\" src=\"rating/0.png\" id=\"r$i$app\" onmouseover=\"getRate( $i ,0, '$app' )\" onmouseout=\"getRate( $ir , $fr , '$app' )\"/></a>";
+echo "<img border=\"0\" hspace=\"0\" src=\"rating/0.png\" id=\"r$i$app\" onclick='location=\"/?cnt=ainfo&category=$category&app=$app&rate=$i&an=$rowRead[3]&l=$lg\"' onmouseover=\"getRate( $i ,0, '$app' )\" onmouseout=\"getRate( $ir , $fr , '$app' )\"/></a>";
+//			<a href='/androApps/?category=".$category."&app=".$app."&rate=2&l=".$lg."'><img border='0' hspace='0' src='rating/0.png' id='r2' onmouseover='getRate(2,0)' onmouseout='getRate(".$ir.",".$fr.")'/></a>
+//			<a href='/androApps/?category=".$category."&app=".$app."&rate=3&l=".$lg."'><img border='0' hspace='0' src='rating/0.png' id='r3' onmouseover='getRate(3,0)' onmouseout='getRate(".$ir.",".$fr.")'/></a>
+//			<a href='/androApps/?category=".$category."&app=".$app."&rate=4&l=".$lg."'><img border='0' hspace='0' src='rating/0.png' id='r4' onmouseover='getRate(4,0)' onmouseout='getRate(".$ir.",".$fr.")'/></a>
+//			<a href='/androApps/?category=".$category."&app=".$app."&rate=5&l=".$lg."'><img border='0' hspace='0' src='rating/0.png' id='r5' onmouseover='getRate(5,0)' onmouseout='getRate(".$ir.",".$fr.")'/></a>			
+      
+} 
+
+echo "</div>";  
+
+?>
+
+  

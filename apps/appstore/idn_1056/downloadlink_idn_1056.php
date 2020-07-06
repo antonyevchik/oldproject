@@ -1,0 +1,1 @@
+http://android-lifestyle.com/apps/appstore/idn_1056/CoolReader-3.1.2-39-market.apk

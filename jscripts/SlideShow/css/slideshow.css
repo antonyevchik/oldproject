@@ -1,0 +1,166 @@
+@CHARSET "UTF-8";
+/*
+body
+{
+	background-color: #a0a050;
+}
+*/
+
+#ss_container
+{
+	position: relative;
+	margin-left:auto;
+	margin-right:auto;
+/*	margin-top:100px; */
+	overflow: hidden;
+/*	max-width: 1000px; */
+/*	background: -webkit-radial-gradient(#3f3f3f, #3f3f3f 3%, #1f1f1f); /* Safari 5.1 to 6.0 */
+/*    background: -o-radial-gradient(#3f3f3f, #3f3f3f 3%, #1f1f1f); /* For Opera 11.6 to 12.0 */
+/*    background: -moz-radial-gradient(#3f3f3f, #3f3f3f 3%, #1f1f1f); /* For Firefox 3.6 to 15 */
+/*    background: radial-gradient(#3f3f3f, #3f3f3f 3%, #1f1f1f); /* Standard syntax (must be last) */
+/*	background-color: #1f1f1f; */
+
+}
+
+
+#leftArrow
+{
+	position: absolute;	
+/*	top: 300px; */
+	height: 80px;
+	width: 50px;
+	text-align: center;
+	opacity: 0.5;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: #ffffff;
+	
+	background: -webkit-linear-gradient(right,rgba(255,255,255,0),rgba(255,255,255,1)); /*Safari 5.1-6*/
+  	background: -o-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1)); /*Opera 11.1-12*/
+  	background: -moz-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1)); /*Fx 3.6-15*/ 
+   	background: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,1)); /*Standard*/ 
+}
+#rightArrow
+{
+	position: absolute;
+/*	top: 300px; */
+	/*left:350px; */
+	height: 80px;
+	width: 50px;
+	text-align: center;
+	opacity: 0.5;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: #ffffff;
+	
+	background: -webkit-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1)); /*Safari 5.1-6*/
+  	background: -o-linear-gradient(right,rgba(255,255,255,0),rgba(255,255,255,1)); /*Opera 11.1-12*/
+  	background: -moz-linear-gradient(right,rgba(255,255,255,0),rgba(255,255,255,1)); /*Fx 3.6-15*/
+  	background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1)); /*Standard*/
+}
+
+#slideshow
+{
+	position: relative;
+	margin-left:auto;
+	margin-right:auto;
+/*	height:700px; */
+
+}
+
+#slideshow img
+{
+	position: absolute;
+/*	max-width: 1000px;
+	max-height: 600px; */
+	
+	width: auto;
+	height: auto;
+	margin:auto;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+}
+
+
+#imgLine
+{
+	position: relative;
+	padding: 0px 0px;
+	left:0px;
+	/*height: 100px; */
+	width: 10000px;
+}
+
+#imgSet
+{
+	position: relative;
+	
+	left:0px;
+	
+/*	height: 100px; */
+	width: 10000px;
+	
+}
+
+#imgSet img
+{
+	display: block;
+	margin-right: 0px;
+	float: left;
+}
+
+#imgLine_left
+{
+	position: absolute;	
+	top: 0px;
+	height: 100px;
+	text-align: center;
+	opacity: 0.5;
+	color: white;
+	text-shadow: 3px  0px 3px black;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: #ffffff;
+	
+	
+    background: -webkit-linear-gradient(right,rgba(0,0,0,0),rgba(0,0,0,1)); /*Safari 5.1-6*/
+  	background: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,1)); /*Opera 11.1-12*/
+  	background: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,1)); /*Fx 3.6-15*/ 
+   	background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1)); /*Standard*/ 
+}
+
+#imgLine_right
+{
+	position: absolute;	
+	top: 0px;
+	height: 100px;
+	text-align: center;
+	opacity: 0.5;
+	color: white;
+	text-shadow: -3px  0px 3px black;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: #ffffff;
+	 background: -webkit-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,1)); /*Safari 5.1-6*/
+  	background: -o-linear-gradient(right,rgba(0,0,0,0),rgba(0,0,0,1)); /*Opera 11.1-12*/
+  	background: -moz-linear-gradient(right,rgba(0,0,0,0),rgba(0,0,0,1)); /*Fx 3.6-15*/
+  	background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1)); /*Standard*/
+}

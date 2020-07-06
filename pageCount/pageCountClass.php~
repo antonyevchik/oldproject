@@ -1,0 +1,55 @@
+<?php
+
+class pageCount
+{
+//	var $startPage=12;
+	
+	
+	var $naop = 5;
+	var $pn;
+	var $na;
+	
+function get_na() 
+	{
+		$naop=5;
+		if (isset($_GET['pn']))	$this->pn = $_GET['pn'];
+		if($this->pn=='') $this->pn=1;
+		if($this->pn==1) $na=0;
+		else {$na = ($this->pn-1)*$naop;}
+		return $na;
+	}
+	
+	
+	
+function pageNmbrPrnt($pp,$cntlink,$lg)
+	{
+//		echo $pp;
+		$naop=5;
+		if (isset($_GET['pn']))	$this->pn = $_GET['pn'];
+		//BEGIN PAGES COUNT CODE
+		if($pp/$naop>=5)
+		{
+			$sp=$this->pn-2; $lp=$this->pn+2; 
+			if($lp>$pp) {$lp=$pp; $sp=$pp-4;}
+			if($sp<=0) {$sp=1; $lp=5;}
+		}
+		
+		else 
+		{
+			$sp=1; $lp=ceil($pp/$naop);
+		}
+	
+		if($this->pn!=1) echo "<a href='/?".$cntlink."&pn=".($this->pn-1)."&l=".$lg."'> < </a>";
+			
+		for($p=$sp; $p<=$lp; $p++) 
+		{	
+			if($p==$this->pn) echo "<a href='/?".$cntlink."&pn=".$p."&l=".$lg."'> <b>".$p."</b></a>";	
+			else echo "<a href='/?".$cntlink."&pn=".$p."&l=".$lg."'>".$p."</a>";	
+		}
+		
+		if($this->pn!=$lp) echo "<a href='/?".$cntlink."&pn=".($this->pn+1)."&l=".$lg."'> > </a>";
+		
+//END PAGES COUNT CODE
+	}
+}
+?>

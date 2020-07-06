@@ -1,0 +1,1 @@
+<img border='0' src='category/books/idn_2149/1324157434_pocketbingo.jpg' />

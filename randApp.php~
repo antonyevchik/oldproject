@@ -1,0 +1,83 @@
+
+
+<?php
+
+
+
+echo "<div id='randApp'>";
+echo $randApp;
+
+for($j=0;$j<5;$j++) 
+{
+
+/*
+$RCquery="SHOW TABLES";
+$RCresult=mysql_query($RCquery);
+if(!$RCresult) die("database access error". mysql_error());
+$RCrows=mysql_num_rows($RCresult);
+
+
+
+
+
+for($i=0;$i<$RCrows;$i++)
+{
+
+$RCrow = mysql_fetch_row($RCresult);
+
+
+
+//$RArows=mysql_num_rows($RAresult);
+$Cquery="SELECT COUNT(*) FROM Media";
+$Cresult=mysql_query($Cquery);
+if(!$Cresult) die("database access error". mysql_error());
+$Crow=mysql_fetch_row($Cresult);
+
+*/
+$perm=1;
+
+while($perm) 
+{ 
+	$perm=0;
+	$RApp=rand(1, $Crow[0]);
+	for($i=0;$i<5;$i++)
+	{
+	if($RApp==$appArr[$i]) {$i=5;$perm=1;}
+	}
+	
+}
+$appArr[$j]=$RApp;
+
+/*
+$RAquery="SELECT Name, Id FROM Media WHERE No='$RApp'";
+$RAresult=mysql_query($RAquery);
+if(!$RAresult) die("database access error". mysql_error());
+$RArow=mysql_fetch_row($RAresult);
+
+*/
+
+
+//}
+
+	
+	echo $RApp."<br>";
+
+
+
+//$RArows=mysql_num_rows($RAresult);
+
+
+
+
+
+//echo "<br>".$RArow[1]."<br>";
+
+
+//}
+
+}
+//}
+echo "</div>";
+
+
+?>

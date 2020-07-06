@@ -1,0 +1,1 @@
+<img border='0' src='category/books/idn_6807/132.jpg' />

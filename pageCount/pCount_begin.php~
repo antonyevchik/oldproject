@@ -1,0 +1,9 @@
+<?php
+//BEGIN INITIALIZATION FOR PAGES COUNT
+		$naop = 7;
+		$pn = $_GET['pn']; if($_GET['pn']=='') $pn=1;
+		if($pn==1) $na=0;
+		else {$na = ($pn-1)*$naop;}
+		
+//END INITIALIZATION FOR PAGES COUNT
+?>

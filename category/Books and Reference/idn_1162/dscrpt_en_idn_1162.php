@@ -1,0 +1,3 @@
+The Collins English Dictionary is a rich source of words for everyone who loves language. Not only is the dictionary comprehensive and authoritative with its 123,000 headwords and 200,000 definitions, but it also offers outstanding coverage of world, regional and dialect English. Including a much wider range of words than ever before, the extensive coverage of geographical, scientific, and technical entries has been updated by the Collins team of leading academic experts.
+
+Information from: http://www.mobisystems.com/android/collins-english-dictionary-2011-complete-amp-unabridged/

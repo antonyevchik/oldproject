@@ -1,0 +1,49 @@
+<?php
+
+function fixip() 
+{
+$app = $_GET['app'];
+$gi = $_SERVER['REMOTE_ADDR']."\n";
+
+//$fo_getip = fopen('getip/ipfile.txt','a') or die("TEST12 Создать файл не удалось!");
+
+//file_exists($filename);
+//$fc = file('getip/ipfile.txt');
+//$n = count($fc);
+
+$perm = 1;
+
+//for($i=0; $i<=$n; $i++) 
+//{
+//	if($fc[$i] == $gi) 
+//	{ 
+//		$i=$n+1; 
+//		$perm=0;
+//		echo $i;
+//	}
+//}
+
+
+
+if(!empty($_COOKIE[$app]))  $perm = 0;
+	else 
+	{
+		setcookie($app, $gi, time()+86400);
+	}
+
+//if($perm)
+//{
+	
+//	echo "TEST";
+	
+//	$fw_getip=fwrite($fo_getip,$gi);
+//	flock($fo_getip,LOCK_UN);
+//	fclose($fw_getip);
+//}
+
+return $perm;
+
+}
+
+
+?>

@@ -1,0 +1,592 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html><head><title>AndroApps Settings</title></head><body>
+
+<table align='top' border='1' style='margin-left: auto; margin-right: auto;'>
+<td>
+	<hr>
+	<form action='sets1.php' method='get'><pre>
+	ENG Section Name:     <input type='text' name='tableName'/>
+	RUS Section Name:     <input type='text' name='catName_ru'/>
+	<input type='submit' value='CREATE'/></pre>
+	</form>
+	<hr>
+	
+<?php
+
+include "qrlib.php"; //QRcode library including
+
+
+// BEGIN DB INITIALIZATION
+require_once 'login.php';
+//phpinfo();
+//echo ini_get('post_max_size');
+//echo ini_get('upload_max_filesize');
+$db_server=mysql_connect($db_hostname, $db_username, $db_password);
+if(!$db_server) die("connection error". mysql_error());
+
+mysql_select_db($db_database, $db_server) or
+ die("database selection error". mysql_error());
+// END DB INITIALIZATION
+
+
+// BEGIN VARIABLES INITIALIZATION AND FUNCTION BLOCK
+$permit = 0;
+$rootPath = $_SERVER['DOCUMENT_ROOT'];
+
+function idGenerator() 
+{
+$perm = 1;
+while($perm) 
+{	
+	$n = rand(0, 9999);
+	if($n < 1000) 
+	{
+		if($n < 10) { $n = "000".$n;  }
+		if($n >= 10 && $n < 100) { $n = "00".$n;  }
+		if($n >= 100 && $n < 1000) { $n = "0".$n;  }
+	} 
+	$varOut = "idn_".$n;
+
+	$perm = 0;
+
+	$queryTab="SHOW TABLES";
+	$resultTab=mysql_query($queryTab);
+	if(!$resultTab) die("database access error". mysql_error());
+	$rowsTab=mysql_num_rows($resultTab);
+	
+	for($i=0; $i<$rowsTab; ++$i) 
+	{
+		$rowTab = mysql_fetch_row($resultTab);	
+		$querySrch="SELECT Id FROM " . $rowTab[0] . " WHERE Id='$varOut'";
+		$resultSrch=mysql_query($querySrch);
+		$rowsSrch=mysql_num_rows($resultSrch);	
+		if($rowsSrch)	{$i=$rowsTab; $perm=1;}
+	}
+}
+	return $varOut;
+}
+
+function RemoveDir($path)
+{
+	if(file_exists($path) && is_dir($path))
+	{
+		$dirHandle = opendir($path);
+		while (false !== ($file = readdir($dirHandle))) 
+		{
+			if ($file!='.' && $file!='..')// исключаем папки с назварием '.' и '..' 
+			{
+				$tmpPath=$path.'/'.$file;
+				chmod($tmpPath, 0777);
+				
+				if (is_dir($tmpPath))
+	  			{  // если папка
+					RemoveDir($tmpPath);
+			   	} 
+	  			else 
+	  			{ 
+	  				if(file_exists($tmpPath))
+					{
+						// удаляем файл 
+	  					unlink($tmpPath);
+					}
+	  			}
+			}
+		}
+		closedir($dirHandle);		
+		// удаляем текущую папку
+		if(file_exists($path))
+		{
+			rmdir($path);
+		}
+	}
+	else
+	{
+		echo "Удаляемой папки не существует или это файл!";
+	}
+}
+
+
+// END VARIABLES INITIALIZATION AND FUNCTION BLOCK
+
+
+
+
+
+// BEGIN CREATE TABLE CODE
+if(!empty($_GET['tableName'])&&!empty($_GET['catName_ru']))
+{
+	
+	$tableName=$_GET['tableName'];
+	$catName_ru=$_GET['catName_ru'];
+	$query="CREATE TABLE " . $tableName . " (
+	Name VARCHAR(32) NOT NULL,
+	Version VARCHAR(32) NOT NULL,
+	Android_Version VARCHAR(32) NOT NULL,
+	Developer VARCHAR(32) NOT NULL,
+	Size VARCHAR(32) NOT NULL,
+	RateSum INT(4) NOT NULL,
+	RateCount INT(4) NOT NULL,
+	Rate FLOAT(4) NOT NULL,
+	Description_en VARCHAR(3000) NOT NULL,
+	Description_ru VARCHAR(3000) NOT NULL,
+	Id VARCHAR(32) NOT NULL,
+	No INT UNSIGNED NOT NULL AUTO_INCREMENT KEY
+	)";
+	if(!mysql_query($query, $db_server))
+			echo "data ins error: $query<br />" . mysql_error(). "<br /><br />";
+			
+	mkdir($rootPath.'/androApps/category/'.$tableName) or die("ERROR");
+	
+/*
+$indexContent = "
+<?php include('".$path."/androApps/templates/header1.php');?>
+
+<title>AndroApps - ".$tableName."</title>
+<meta name='Description' content='' />
+<meta name='Keywords' content='' />
+
+<?php 
+	include('".$path."/androApps/templates/header2.php');
+	include('".$path."/androApps/ads/topAd.php');
+	include('".$path."/androApps/search/search.php');
+	include('".$path."/androApps/menu/menu.php');
+	include('".$path."/androApps/ads/leftAd.php'); 
+	include('".$path."/androApps/ads/rightAd.php'); 
+?>
+
+<div id='centerContent'> 
+<?php include('".$path."/androApps/appList.php');?>
+</div>
+<?php include('".$path."/androApps/templates/footer.php');?>";
+	
+	$indexFile = fopen('category/'.$tableName.'/index.php','a') or die("TEST Создать файл не удалось!");
+	$iF = fwrite($indexFile,$indexContent);	
+	flock($indexFile,LOCK_UN);
+	fclose($indexFile);	
+*/	
+	
+	$menuListOut_en = "<a href='/androApps/?cnt=ctg&category=".$tableName."&sort=Rate&pn=1&l=en'>".$tableName."</a><br>";
+	$menuList_en = fopen('menu/menuList_en.php','a') or die("TEST Создать файл не удалось!");
+	$mL_en=fwrite($menuList_en,$menuListOut_en);
+   flock($menuList_en,LOCK_UN);
+	fclose($mL_en);
+	
+	$menuListOut_ru = "<a href='/androApps/?cnt=ctg&category=".$tableName."&sort=Rate&pn=1&l=ru'>".$catName_ru."</a><br>";
+	$menuList_ru = fopen('menu/menuList_ru.php','a') or die("TEST Создать файл не удалось!");
+	$mL_ru=fwrite($menuList_ru,$menuListOut_ru);
+   flock($menuList_ru,LOCK_UN);
+	fclose($mL_ru);
+}
+// END CREATE TABLE CODE
+
+
+
+// BEGIN TABLE SELECTION CODE
+	$queryTab="SHOW TABLES";
+	$resultTab=mysql_query($queryTab);
+	if(!$resultTab) die("database access error". mysql_error());
+	$rowsTab=mysql_num_rows($resultTab);
+		
+	echo "
+	<form action='sets1.php' method='get'><pre>
+	Choose a Table Data Base (Section): <select name='selectTab'>";
+	
+	for($i=0; $i<$rowsTab; ++$i) 
+	{
+		$rowTab = mysql_fetch_row($resultTab);
+	echo "
+	<option value='$rowTab[0]'>$rowTab[0]</option>";
+	}
+	echo "
+	</select>
+	<input type='submit' value='SELECT' />
+	</pre>
+	</form>";
+
+// END TABLE SELECTION CODE
+
+
+
+echo "<a href='sets1.php'>ADD ANOTHER RECORD</a>";
+
+//include("addRecord.php");
+
+if( !empty($_GET['selectTab']))
+{
+	$selectTab = $_GET['selectTab'];
+	$permit = 1;
+}
+
+if( !empty($_POST['selectTab']))
+{
+	$selectTab = $_POST['selectTab'];
+	$permit = 1;
+}
+
+echo $selectTab;
+
+
+// BEGIN INSERT RECORD TO TABLES
+
+
+if( 
+	
+	!empty($_POST['Name']) &&
+	!empty($_POST['Version']) &&
+	!empty($_POST['Android_Version']) &&
+	!empty($_POST['Developer'])&&isset($_POST['devLink'])&&
+	!empty($_POST['Size']) &&
+	isset($_POST['Rate']) &&
+//	isset($_POST['qrLink']) &&
+//	isset($_POST['Id']) &&
+	$_FILES &&
+//	isset($_POST['linkname1'])&&isset($_POST['link1']) ||
+//	isset($_POST['linkname2'])||isset($_POST['link2']) ||
+//	isset($_POST['linkname3'])||isset($_POST['link3']) &&
+	!empty($_POST['description_en']) &&
+	!empty($_POST['description_ru']))
+	
+	{
+		
+		
+	
+		$Name				  = $_POST['Name'];
+		$Version         = $_POST['Version'];
+		$Android_Version = $_POST['Android_Version'];
+		$Developer		  = $_POST['Developer'];
+		$devLink         = $_POST['devLink'];
+		$Size				  = $_POST['Size'];
+		$Rate            = $_POST['Rate'];
+//		$Id				  = $_POST['Id'];
+		$Id              = idGenerator();
+		
+		$appPath = $rootPath.'/androApps/category/'.$selectTab.'/'.$Id;
+		mkdir($appPath) or die("ERROR");	
+			
+		$afPath = 'category/'.$selectTab.'/'.$Id;
+		
+		$application = $_FILES['application']['name'];
+		move_uploaded_file($_FILES['application']['tmp_name'], $appPath.'/'.$application);
+//		echo 	$_FILES['application']['error'];		
+		$mainScreenshot = $_FILES['mainScreenshot']['name'];
+		move_uploaded_file($_FILES['mainScreenshot']['tmp_name'], $appPath.'/'.$mainScreenshot);
+		$firstScreenshot = $_FILES['firstScreenshot']['name'];
+		move_uploaded_file($_FILES['firstScreenshot']['tmp_name'], $appPath.'/'.$firstScreenshot);
+		$secondScreenshot = $_FILES['secondScreenshot']['name'];
+		move_uploaded_file($_FILES['secondScreenshot']['tmp_name'], $appPath.'/'.$secondScreenshot);
+		$thirdScreenshot = $_FILES['thirdScreenshot']['name'];
+		move_uploaded_file($_FILES['thirdScreenshot']['tmp_name'], $appPath.'/'.$thirdScreenshot);
+		$fourthScreenshot = $_FILES['fourthScreenshot']['name'];
+		move_uploaded_file($_FILES['fourthScreenshot']['tmp_name'], $appPath.'/'.$fourthScreenshot);
+		//$qrCode = $_FILES['qrCode']['name'];
+		//move_uploaded_file($_FILES['qrCode']['tmp_name'], $appPath.'/'.$qrCode);
+//		$qrLink = $_POST['qrLink'];
+		
+		if($_POST['link1']) {$linkname1 = $_POST['linkname1']; $link1 = $_POST['link1'];} else $linkname1="";
+		if($_POST['link2']) {$linkname2 = $_POST['linkname2']; $link2 = $_POST['link2'];} else $linkname2="";
+		if($_POST['link3']) {$linkname2 = $_POST['linkname3']; $link2 = $_POST['link3'];} else $linkname3="";
+		
+		
+		
+		
+		$description_en = $_POST['description_en'];
+		$description_ru = $_POST['description_ru'];
+		
+		
+		
+		$mScrnsht = "<img src='".$afPath."/".$mainScreenshot."' />";		
+		
+		if($application)
+		{
+		$dapp_en="<a href='".$afPath."/".$application."'> <b>Download<b> </a>";
+		$dapp_ru="<a href='".$afPath."/".$application."'> <b>Скачать<b> </a>";
+		}
+		else 
+		{
+			$dapp_en=$dapp_ru="";
+		}
+		
+		if($devLink)
+		{
+		$dlink_en="<b>Developer:</b> <a href='$devLink'> $Developer </a>";
+		$dlink_ru="<b>Разработчик:</b> <a href='$devLink'> $Developer </a>";
+		}
+		else 
+		{
+			$dlink_en="<b>Developer: $Developer</b>";
+			$dlink_ru="<b>Разработчик: $Developer</b>";
+		}
+			
+		
+		
+		$mInfo_en = "
+		<div>
+		<h2>$Name</h2>
+		<b>Version:</b> $Version<br>
+		<b>OS:</b> $Android_Version<br>
+		$dlink_en <br>
+		<b>Size:</b> $Size<br>
+		$dapp_en	
+		</div>
+		";
+		
+		$mInfo_ru = "
+		<div>
+		<h2>$Name</h2>
+		<b>Версия:</b> $Version<br>
+		<b>ОС:</b> $Android_Version<br>
+		$dlink_ru <br>
+		<b>Размер:</b> $Size<br>
+		$dapp_ru	
+		</div>
+		";
+		
+		$qr="<?php 
+		QRcode::png('".$appPath."/".$application."','".$appPath."/qr_".$Id.".png',0,3)
+		?>
+		<img src='".$appPath."/qr_".$Id.".png' >		
+		";
+		
+		//"
+		//<a href='".$afPath."/".$application."'><img border='0' src='".$afPath."/".$qrCode."'></a>
+		//";		
+		
+		$links = "
+		<a href='$link1'> $linkname1 </a><br>
+		<a href='$link2'> $linkname2 </a><br>
+		<a href='$link3'> $linkname3 </a>
+		";		
+		
+		
+		
+		
+		$scrnshts = "
+		<img src='".$afPath."/".$firstScreenshot."' /><img src='".$afPath."/".$secondScreenshot."' /><br>
+		<img src='".$afPath."/".$thirdScreenshot."' /><img src='".$afPath."/".$fourthScreenshot."' /><br>
+		";
+		
+		
+//		echo $rootPath.'/androApps/category/'.$selectTab.'/'.$Id.'.php';
+		
+		$fo_mScrnsht = fopen($appPath.'/mScrnsht_'.$Id.'.php','a') or die("TEST Создать файл не удалось!");
+		$fw_mScrnsht=fwrite($fo_mScrnsht,$mScrnsht);
+		flock($fo_mScrnsht,LOCK_UN);
+		fclose($fw_mScrnsht);		
+				
+		
+		$fo_mInfo_en = fopen($appPath.'/mInfo_en_'.$Id.'.php','a') or die("TEST Создать файл не удалось!");
+		$fw_mInfo_en=fwrite($fo_mInfo_en,$mInfo_en);
+		flock($fo_mInfo_en,LOCK_UN);
+		fclose($fw_mInfo_en);
+		
+		$fo_mInfo_ru = fopen($appPath.'/mInfo_ru_'.$Id.'.php','a') or die("TEST Создать файл не удалось!");
+		$fw_mInfo_ru=fwrite($fo_mInfo_ru,$mInfo_ru);
+		flock($fo_mInfo_ru,LOCK_UN);
+		fclose($fw_mInfo_ru);		
+		
+		
+		$fo_qr = fopen($appPath.'/qr_'.$Id.'.php','a') or die("TEST Создать файл не удалось!");
+		$fw_qr=fwrite($fo_qr,$qr);
+		flock($fo_qr,LOCK_UN);
+		fclose($fw_qr);
+		
+		
+		$fo_links = fopen($appPath.'/links_'.$Id.'.php','a') or die("TEST Создать файл не удалось!");
+		$fw_links=fwrite($fo_links,$links);
+		flock($fo_links,LOCK_UN);
+		fclose($fw_links);
+		
+		
+		$fo_dscrpt_en = fopen($appPath.'/dscrpt_en_'.$Id.'.php','a') or die("TEST Создать файл не удалось!");
+		$fw_dscrpt_en=fwrite($fo_dscrpt_en,$description_en);
+		flock($fo_dscrpt_en,LOCK_UN);
+		fclose($fw_dscrpt_en);
+		
+		
+		$fo_dscrpt_ru = fopen($appPath.'/dscrpt_ru_'.$Id.'.php','a') or die("TEST Создать файл не удалось!");
+		$fw_dscrpt_ru=fwrite($fo_dscrpt_ru,$description_ru);
+		flock($fo_dscrpt_ru,LOCK_UN);
+		fclose($fw_dscrpt_ru);
+		
+		
+		$fo_scrnshts = fopen($appPath.'/scrnshts_'.$Id.'.php','a') or die("TEST Создать файл не удалось!");
+		$fw_scrnshts=fwrite($fo_scrnshts,$scrnshts);
+		flock($fo_scrnshts,LOCK_UN);
+		fclose($fw_scrnshts);
+		
+		
+		
+		
+		
+		$query = "INSERT INTO " . $selectTab . "(Name,Version,Android_Version,Developer,Size,Rate,Description_en,Description_ru,Id) VALUES".
+		"('$Name', '$Version', '$Android_Version', '$Developer', '$Size', '$Rate', '$description_en', '$description_ru', '$Id')";
+	
+		if(mysql_query($query, $db_server))
+		{//	echo "data ins error: $query<br />" . mysql_error(). "<br /><br />";
+			
+			
+		$QR_allapps="INSERT INTO allapps (Id, Category) VALUES ('$Id','$selectTab')";
+		if(!mysql_query($QR_allapps, $db_server))
+			echo "data ins error: $QR_allapps<br />" . mysql_error(). "<br /><br />";
+		}
+		else echo "data ins error: $query<br />" . mysql_error(). "<br /><br />";
+	}
+// END INSERT RECORD TO TABLES
+
+// BEGIN DELETE RECORD FROM TABLE
+if(isset($_POST['delete']))
+	{
+	//	$selectTab = $_POST['selectTab'];
+		$Id	=	$_POST['Id'];
+		$rmappaddr=$rootPath.'/androApps/category/'.$selectTab.'/'.$Id;
+		RemoveDir($rmappaddr);
+		
+		$query = "DELETE FROM " . $selectTab . " WHERE Id='$Id'";
+			
+		if(!mysql_query($query, $db_server))
+		echo "data remove error: $query<br />" . mysql_error(). "<br /><br />";
+		
+		$QR_allapps="DELETE FROM allapps WHERE Id='$Id'";
+		if(!mysql_query($QR_allapps, $db_server))
+			echo "data ins error: $QR_allapps<br />" . mysql_error(). "<br /><br />";
+	}
+// END RECORD FROM TABLE
+
+
+
+	
+//	echo "Uploaded image '$application'<br />";
+//	echo "Uploaded image '$mainScreenshot'<br />";
+
+
+
+
+// table select
+
+
+// BEGIN FORM BLOCK
+
+echo "
+<hr />
+<form method='post' action='sets1.php' enctype='multipart/form-data'> <pre>
+Name              <input type='text' name='Name' />
+Version           <input type='text' name='Version' />
+Android Version   <input type='text' name='Android_Version' />
+Developer         <input type='text' name='Developer' size='10' /> ref:<input type='text' name='devLink' size='10' />
+Size              <input type='text' name='Size' />
+Rate              <input type='text' name='Rate' />
+<!-- Id           <input type='text' name='Id' /> -->
+
+<!-- <input type='hidden' name='MAX_FILE_SIZE' value='3000000' /> -->
+Upload Application :      <input type='file' name='application' size='10' /> <br />
+Upload Main Screenshot:   <input type='file' name='mainScreenshot' size='10' /> <br />
+Upload First Screenshot:  <input type='file' name='firstScreenshot' size='10' /> <br />
+Upload Second Screenshot: <input type='file' name='secondScreenshot' size='10' /> <br />
+Upload Third Screenshot:  <input type='file' name='thirdScreenshot' size='10' /> <br />
+Upload Fourth Screenshot: <input type='file' name='fourthScreenshot' size='10' /> <br />
+<!-- Upload QR-code Image:     <input type='file' name='qrCode' size='10' /> -->  <!-- ref:<input type='text' name='qrLink' size='5' /> <br /> --> <br />
+
+<br><b>Link1:</b> Name <input type='text' name='linkname1' size='10'/> ref:<input type='text' name='link1' size='10'/><br>
+<br><b>Link2:</b> Name <input type='text' name='linkname2' size='10'/> ref:<input type='text' name='link2' size='10'/><br>
+<br><b>Link3:</b> Name <input type='text' name='linkname3' size='10'/> ref:<input type='text' name='link3' size='10'/><br>
+
+Description EN:
+<textarea name='description_en' rows='10' cols='50'></textarea>
+Description RU:
+<textarea name='description_ru' rows='10' cols='50'></textarea>
+
+<input type='hidden' name='selectTab' value='$selectTab' />
+<input type='submit' value='ADD RECORD' />
+</pre>
+</form>
+";
+
+// END FORM BLOCK
+
+
+
+
+
+
+// BEGIN OUTPUT FILE BLOCK
+
+if($description = $_POST['description'])
+{
+$Name = $_POST['Name'];
+
+
+}
+
+// END OUTPUT FILE BLOCK
+
+echo "<td><div><table border='1'>";
+
+
+
+if($permit) 
+{		
+
+	$query1 = "SELECT*FROM $selectTab";
+	$result1 = mysql_query($query1);
+	if(!$result1) die("database access error". mysql_error());
+	$rows = mysql_num_rows($result1);
+
+	echo "<tr>
+	<td>No</td>
+	<td>Name</td>
+	<td>Version</td>
+	<td>Android<br>Version</td>
+	<td>Developer</td>
+	<td>Size</td>
+	<td>Rate</td>
+	<td>Description_EN</td>
+	<td>Description_RU</td>
+	<td>Id</td>
+		</tr>";
+	
+	for ($j = 0; $j<$rows; ++$j)
+	{ 
+		$row = mysql_fetch_row($result1);
+		echo "
+		<tr>
+		<td>$row[11]</td>
+		<td>$row[0]</td>
+		<td>$row[1]</td>
+		<td>$row[2]</td>
+		<td>$row[3]</td>
+		<td>$row[4]</td>
+		<td>$row[7]</td>
+		<td>$row[8]</td>
+		<td>$row[9]</td>
+		<td>$row[10]</td>
+		<td>
+		<form action='sets1.php' method='post'>
+		<input type='hidden' name='delete' value='yes' />
+		<input type='hidden' name='selectTab' value='$selectTab' />
+		<input type='hidden' name='Id' value='$row[10]' />
+		<input type='submit' value='DELETE' /> </form>
+		</tr></td>";
+ 	
+	}
+	
+}
+echo "</div></table>";
+
+
+
+//header('Location: sets.php');
+	mysql_close($db_server);
+	
+		
+		function get_post($var)
+		{
+			return mysql_real_escape_string($_POST[$var]);
+		}
+		
+//		ob_end_clean();
+//	header('Location: sets1.php');
+?>
+</table>
+</body>
+</html>

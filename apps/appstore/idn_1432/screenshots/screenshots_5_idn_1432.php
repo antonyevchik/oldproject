@@ -1,0 +1,1 @@
+<img border='0'  src='/android-lifestyle_t2/apps/appstore/idn_1432/screenshots/screenshot_5_idn_1432' />

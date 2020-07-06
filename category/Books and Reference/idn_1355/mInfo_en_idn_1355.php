@@ -1,0 +1,10 @@
+
+		<div>
+		<h2>EBookDroid 1.6.4</h2>
+		<b>Version:</b> 1.6.4<br>
+		<b>OS:</b> 1.5+<br>
+		<b>Developer:</b> <a href='http://code.google.com/p/ebookdroid/'> mc.creat </a> <br>
+		<b>Size:</b> 3.8 Mb<br>
+		<a href='category/Books and Reference/idn_1355/ebookdroid-1.6.4.apk'> <b>Download</b> </a>	
+		</div>
+		

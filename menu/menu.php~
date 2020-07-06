@@ -1,0 +1,7 @@
+<div id="menu">
+
+<?php 
+echo "<h3>$menuName_lg</h3>";
+include($rootPath.'menu/menuList_'.$lg.'.php');
+?>
+</div>

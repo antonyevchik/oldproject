@@ -1,0 +1,156 @@
+<?php
+//echo "
+//<link href='".$_SERVER['DOCUMENT_ROOT']."/androApps/main.css' rel='stylesheet' type='text/css' media='screen' />
+//";
+?>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link href='/main.css' rel='stylesheet' type='text/css' media='screen' />
+<link href='/messages/message.css' rel='stylesheet' type='text/css' media='screen' />
+<script type="text/javascript" src="jscripts/rating.js"></script>
+<!-- Put this script tag to the <head> of your page -->
+<script type="text/javascript" src="//vk.com/js/api/openapi.js?78"></script>
+<script type="text/javascript"> VK.init({apiId: 3353933, onlyWidgets: true});</script>
+<script type="text/javascript" src="//vk.com/js/api/openapi.js?75"></script>
+</head>
+
+<body>
+<!--
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+-->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_EN/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+<?php
+$rootPath = $_SERVER['DOCUMENT_ROOT'].'/';
+$icl = $_SERVER['REQUEST_URI'];
+$big='300px'; $small='200px'; $imHeight='auto'; //Screenshots style varibles. Define in including files in appWin.php and  aptem.php
+
+//echo $icl;
+include($rootPath."pageCount/pageCountClass.php");
+?>
+
+<div id="mainContainer">
+<div id="title">
+<div id="titlestrip"></div>
+<div id="underTitleStrip">
+<div id="titleBottom">
+
+
+
+
+<?php
+
+$cntry0=explode(",",$_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+$cntry=explode("-",$cntry0[0]);
+
+
+if($cntry[0]=='uk') $langCase='ru';
+if($cntry[0]=='be') $langCase='ru';
+if($cntry[0]=='kk') $langCase='ru';
+if($cntry[0]=='ru') $langCase='ru';
+
+if($cntry[0]!='en'&&$langCase!='ru') $langCase='en';
+if($cntry[0]=='en') $langCase='en';
+
+//echo $cntry[0];
+?>
+
+
+
+<?php
+if(($langCase=='en'||!$langCase)||$_GET['l']=='en')
+{
+	$home_lg='Home';
+	$news_lg='News';
+	$apps_lg='Applications';
+	$games_lg='Games';
+	$Description_lg='Description';
+	$Screenshots_lg='Screenshots';
+	$Messages_lg='Comments';
+	$Search_lg='Search';
+	$more_lg='more';
+	$rate_lg='Rating:';
+	$votes_lg='votes:';
+	$qrCode_lg='QR-code';
+	$additLink_lg='Additional links:';
+	$srchResHeader_lg='Search results for ';
+	$randAppHeader_lg='Random application';
+	$suggestApp_lg='We suggest';
+	$terms_lg='Tems of Use';
+//	$randApp='Random application';
+	$lg='en';
+}
+if(($langCase=='ru'&&$_GET['l']!='en')||$_GET['l']=='ru')
+{
+	$home_lg='Главная';
+	$news_lg='Новости';
+	$apps_lg='Программы';
+	$games_lg='Игры';
+	$Description_lg='Описание';
+	$Screenshots_lg='Скриншоты';
+	$Messages_lg='Комментарии';
+	$Search_lg='Поиск';
+	$more_lg='далее';
+	$rate_lg='Оценка:';
+	$votes_lg='голосов:';
+	$qrCode_lg='QR-код';
+	$additLink_lg='Дополнительные ссылки:';
+	$srchResHeader_lg='Результаты поиска для ';
+	$randAppHeader_lg='Случайное приложение';
+	$suggestApp_lg='Мы предлагаем';
+	$terms_lg='Условия использования';
+//	$randApp='Случайное приложение';
+	$lg='ru';
+}	
+
+echo "<a href='http://android-lifestyle.com/?l=$lg' >$home_lg</a>&nbsp;&nbsp;";
+echo "<a href='http://android-lifestyle.com/?cnt=news&l=$lg' >$news_lg</a>&nbsp;&nbsp;";
+
+
+
+
+if(empty($_GET['l'])&&$icl=='/') 
+{
+	
+	echo "
+	<a href='".$icl."?l=en' ><b>ENG</b></a>
+	<a href='".$icl."?l=ru' ><b>РУС</b></a>
+	";
+}
+else 
+{
+	$sl = strlen($icl) - 5;
+	$cl = substr($icl,0,$sl);
+	
+	if($cl=="/")
+	{
+	echo "
+	<a href='".$cl."?l=en' ><b>ENG</b></a>
+	<a href='".$cl."?l=ru' ><b>РУС</b></a>
+	";
+	}
+	else 
+	{
+	echo "
+	<a href='".$cl."&l=en' ><b>ENG</b></a>
+	<a href='".$cl."&l=ru' ><b>РУС</b></a>
+	";
+	}
+}
+?>
+</div> <!-- titleBottom -->
+</div><!-- underTitletrip -->

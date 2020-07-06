@@ -1,0 +1,1 @@
+<img border='0'  src='/apps/appstore/idn_1056/screenshots/screenshot_2_idn_1056' />

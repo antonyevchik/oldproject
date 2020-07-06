@@ -1,0 +1,73 @@
+<?php
+echo "<h3>$suggestApp_lg</h3>";
+
+$rr=0;
+
+$query="SHOW TABLES";
+if(!mysql_query($query, $db_server)) echo "data search error: $query<br/>". mysql_error() ."<br/><br/>";
+$result=mysql_query($query);
+$rows=mysql_num_rows($result);
+
+
+
+for($i=0;$i<$rows;$i++) 
+{
+
+	$alltab[$i]=mysql_fetch_row($result);
+	
+	$cat_query="SELECT * FROM \"".$alltab[$i][0]."\"";
+	if(!mysql_query($cat_query, $db_server)) echo "data search error: $cat_query<br/>". mysql_error() ."<br/><br/>";
+	$cat_result=mysql_query($cat_query);
+	$cat_rows=mysql_num_rows($cat_result);
+	
+	for($j=0;$j<$cat_rows;$j++) 
+	{
+		$cat_fetch[$i][$j]=mysql_fetch_row($cat_result);
+		
+		$pall[$rr]=$cat_fetch[$i][$j];
+		$pall[$rr][13]=$alltab[$i][0];
+		$rr++;
+	}
+}
+
+
+$randApp=array();
+
+
+$l=1;
+for($k=1;$k<=5; ) 
+{
+	$perm=1;
+	$randNum=rand(0,sizeof($pall)-1);
+	$m=0;
+	for($g=0; $g<sizeof($randApp); $g++) 
+	{
+		if($randApp[$g]==$randNum) 
+		{$perm=0;}
+		
+	//	else {$perm=1;}
+	}
+//	$l++;
+	if($perm) 
+	{
+			
+		$randApp[$k-1]=$randNum;
+		$k++;
+//		echo sizeof($randApp);
+//		$k=$l;
+		 
+	}
+//	if($l>=3) $k=$l;
+}
+
+	echo "<div style='margin-top:5px;margin-left:5px;'>";
+	
+for($pp=0;$pp<sizeof($randApp);$pp++)
+{
+	$sall[$pp]=$pall[$randApp[$pp]];
+	echo "<a href='?cnt=ainfo&category=".$sall[$pp][13]."&app=".$sall[$pp][11]."&an=".$sall[$pp][0]."&l=".$lg." '>".$sall[$pp][0]."</a><br/>";
+}
+	echo "</div><br>";
+//	mysql_close($db_server); 
+
+?>

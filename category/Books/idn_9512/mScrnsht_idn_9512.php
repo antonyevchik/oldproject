@@ -1,0 +1,1 @@
+<img border='0' src='category/books/idn_9512/Monkey-Business1.png' />

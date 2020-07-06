@@ -1,0 +1,20 @@
+<?php
+if(!empty($_GET['rate']))
+{
+	$submitRate = $_GET['rate'];
+	$queryRead="SELECT RateSum, RateCount FROM $category WHERE Id='$app'";
+	$resultRead=mysql_query($queryRead);
+	if(!$resultRead) die('database access error'. mysql_error());	
+	$rowRead = mysql_fetch_row($resultRead); 
+	
+	$rowRead[1]++;
+	$submitRate = 5;
+ 	$resultSum = $submitRate+$rowRead[0];
+	echo $rate = $resultSum/$rowRead[1];
+ 	
+	$queryWrite="UPDATE $category SET RateSum='$resultSum', RateCount='$rowRead[1]', Rate='$rate' WHERE Id='$app'";
+	$resultWrite=mysql_query($queryWrite);
+	if(!$resultWrite) die('database access error'. mysql_error());		
+	
+}
+?>

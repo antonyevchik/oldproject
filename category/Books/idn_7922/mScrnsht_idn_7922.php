@@ -1,0 +1,1 @@
+<?php echo "<img border='0' style='width: $big; height: $imHeight;' src='category/Books/idn_7922/367076-1920x1080.jpg' />"; ?>

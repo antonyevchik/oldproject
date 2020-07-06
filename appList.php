@@ -1,0 +1,48 @@
+<?php
+
+if(isset($_GET['cnt']))
+{
+	//BEGIN CATEGORY APPLICATION LIST CODE
+	if($_GET['cnt']=='ctg'&&isset($_GET['category']))
+	{	
+		echo "<h3>".$_GET['category']."</h3>";
+   	$cntlink="cnt=ctg&category=".$_GET['category']."&sort=Rate";
+   	include ("category/ctgList.php");
+	}
+	//END CATEGORY APPLICATION LIST CODE
+	
+
+
+	// BEGIN SEARCH CODE
+	if($_GET['cnt']=='srch'&&isset($_GET['sQ']))
+	{
+		echo "<h3>".$srchResHeader_lg." ".$_GET['sQ']."</h3>";
+		$cntlink="cnt=srch&sQ=".$_GET['sQ'];
+		include ("search/search.php");
+	}
+	// END SEARCH CODE
+	
+	// BEGIN TERMS OF USE
+	if($_GET['cnt']=='terms')
+	{
+		$cntlink="cnt=terms";
+		include("terms.php");
+	}
+	// END TERMS OF USE
+	
+
+}
+else
+{
+	//BEGIN RANDOM APPS CODE
+	echo "<h3>".$randAppHeader_lg."</h3>";
+	$cntlink="";
+	include ("random_app.php");
+	//END  RANDOM APPS CODE
+}
+
+if(isset($_GET['cnt'])&&$_GET['cnt']=='errorpage')
+include("errorPage.php");
+
+
+?>
